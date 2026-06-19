@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -21,17 +23,16 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        $user = User::where('email', $request->email)->first();
+        if (!$user && $user->password != $password) {
+        return back()->withErrors([
+            'email' => 'Invalid credentials'
         ]);
-
-        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
-            return back()
-                ->withErrors(['email' => 'Those credentials do not match our records.'])
-                ->onlyInput('email');
-        }
-
+    }
+        Auth::login($user);
         // Prevent session fixation attacks.
         $request->session()->regenerate();
 

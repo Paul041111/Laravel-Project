@@ -14,7 +14,6 @@
             @auth
                 <a href="{{ route('articles.create') }}">New Article</a>
 
-                <span>{{ auth()->user()->name }}</span>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit">Logout</button>
