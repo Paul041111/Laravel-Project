@@ -1,9 +1,5 @@
 
-bash
 
-# Fix 4 — create the article-card as a proper Blade anonymous component
-mkdir -p /tmp/articles-laravel-fixed/resources/views/components
-cat > /tmp/articles-laravel-fixed/resources/views/components/article-card.blade.php
 {{--
     Anonymous Blade component — article card.
     Usage: <x-article-card :article="$article" />
