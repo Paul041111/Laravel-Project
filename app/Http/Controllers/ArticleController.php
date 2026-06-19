@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Polices\ArticlePolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -64,8 +65,8 @@ class ArticleController extends Controller
      * Update an article. Only the owner is allowed (see ArticlePolicy).
      */
     public function update(Request $request, Article $article)
-    {
-        Gate::authorize('update', $article);
+    {   
+         $this->authorize('update', $article);
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',

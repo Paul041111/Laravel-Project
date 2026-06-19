@@ -8,7 +8,7 @@
     <form action="{{ route('articles.update', $article) }}" method="POST">
         @csrf
         @method('PUT')
-
+        
         <label for="title">Title</label><br>
         <input type="text" id="title" name="title" value="{{ old('title', $article->title) }}" />
         @error('title')
